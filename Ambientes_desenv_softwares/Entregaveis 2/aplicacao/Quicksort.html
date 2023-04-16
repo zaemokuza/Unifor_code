@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    />
+
+    <title>Quicksort</title>
+  </head>
+  <body style="font-family: sans-serif">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">My Website</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="../Home/index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="https://replit.com/@CaioSousa19/Entregavel-2#Main.java"
+                >Java</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../enderecos_cod/javaScript.html"
+                >JavaScript</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <h1>Quicksort</h1>
+      <!-- <p>This is a template using Bootstrap 5.</p> -->
+      <pre>
+        <code class="text-primary">
+
+          function particao(a, baixo, alto) {
+            let pivo = a[alto];
+            let i = baixo - 1;
+            for (let j = baixo; j < alto; j++) {
+              if (a[j] < pivo) {
+                i++;
+                let temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+              }
+            }
+            let temp = a[i + 1];
+            a[i + 1] = a[alto];
+            a[alto] = temp;
+          
+            return i + 1;
+          }
+          
+          function quicksort(a, baixo, alto) {
+            if (baixo < alto) {
+              let parte = particao(a, baixo, alto);
+              quicksort(a, baixo, parte - 1);
+              quicksort(a, parte + 1, alto);
+            }
+          }
+          
+          function ordenar() {
+            const input = document.getElementById("text").value.trim();
+            if (input === "") {
+              document.getElementById("output").innerHTML =
+                "Por favor, insira uma lista de números inteiros";
+              return;
+            }
+          
+            const a = input.split(" ").map(Number);
+            quicksort(a, 0, a.length - 1);
+          
+            document.getElementById("output").innerHTML =
+              "A ordenação dos elementos é: " + a.join(" ");
+          }
+          
+        </code>
+      </pre>
+      <br />
+      <form>
+        <label for="text">Ordenador de numeros: </label>
+        <input
+          type="text"
+          class="form-control"
+          id="text"
+          name="text"
+          placeholder="Entre com a lista de números inteiros separados por espaço:"
+        />
+        <br />
+        <button type="button" class="btn btn-primary" onclick="ordenar()">
+          Ordenar
+        </button>
+      </form>
+      <br />
+      <p id="output"></p>
+      <script src="../js/quicksort.js"></script>
+      <!-- <button class="btn btn-primary">Learn More</button> -->
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

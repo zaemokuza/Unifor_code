@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Sarabun", sans-serif;
+}
+
+body {
+  background-color: white;
+}
+
+.header {
+  display: flex;
+  background-color: white;
+  align-items: center;
+  padding: 44px;
+}
+
+.header-left {
+  display: flex;
+  flex: 1;
+  font-family: "Satisfy", cursive;
+  font-size: 20px;
+}
+
+/* .header-center {
+  font-family: "Sarabun", sans-serif;
+} */
+
+.header-right {
+  display: flex;
+  flex: 1;
+  justify-content: end;
+  margin-right: 105px;
+}
+
+.about-us {
+  margin: 0 150px;
+}
+
+.header-right button {
+  background-color: black;
+  color: white;
+  height: 43px;
+  border-radius: 20px;
+  padding: 0 19px;
+  border: none;
+}
+
+.content {
+  display: flex;
+  padding: 0 56px 56px 56px;
+}
+
+.content-left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.content-left-arriba {
+  font-size: 60px;
+  padding: 0 60px;
+}
+
+.highlight {
+  color: #ded5c6;
+}
+
+.content-left-abajo {
+  font-size: 20px;
+  padding: 0 60px;
+}
+
+.content-left button {
+  background-color: black;
+  color: white;
+  height: 43px;
+  border-radius: 20px;
+  padding: 0 19px;
+  border: none;
+  align-self: center;
+}
+
+.content-right {
+  display: flex;
+  flex: 1;
+}
+
+.content-right img {
+  object-fit: cover;
+  width: 100%;
+}
