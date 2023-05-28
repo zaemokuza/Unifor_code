@@ -1,0 +1,17 @@
+{
+  "name": "ambientestestes",
+  "version": "1.0.0",
+  "description": "testes",
+  "main": "contagem.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "ELiak",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
