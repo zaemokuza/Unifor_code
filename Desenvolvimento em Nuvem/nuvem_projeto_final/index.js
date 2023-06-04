@@ -1,17 +1,23 @@
 const express = require("express");
 const { createClient } = require("@supabase/supabase-js");
+const path = require("path");
 
 const supabaseUrl = "https://xcdkzxbjlhxevqqqkift.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhjZGt6eGJqbGh4ZXZxcXFraWZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU4MzA0NzIsImV4cCI6MjAwMTQwNjQ3Mn0.wsiJciG5p572A9h4I4FytAvQf2THtCklFayNOxgO04Y";
 
 const supabase = createClient(supabaseUrl, supabaseKey);
+
 const app = express();
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
 // Listar todos os produtos
-app.get("/produtos", async (req, res) => {
+app.get("/api/produtos", async (req, res) => {
   try {
     const { data: produtos, error } = await supabase
       .from("produtos")
@@ -24,7 +30,8 @@ app.get("/produtos", async (req, res) => {
 });
 
 // Obter um produto por ID
-app.get("/produtos/:id", async (req, res) => {
+app.get("/api/produtos/:id", async (req, res) => {
+  // Correção aqui
   try {
     const { id } = req.params;
     const { data: produto, error } = await supabase
@@ -41,7 +48,7 @@ app.get("/produtos/:id", async (req, res) => {
 });
 
 // Criar um novo produto
-app.post("/produtos", async (req, res) => {
+app.post("/api/produtos", async (req, res) => {
   try {
     const { nome, preco } = req.body;
     const { data, error } = await supabase
@@ -55,7 +62,7 @@ app.post("/produtos", async (req, res) => {
 });
 
 // Atualizar um produto por ID
-app.put("/produtos/:id", async (req, res) => {
+app.put("/api/produtos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { nome, preco } = req.body;
@@ -72,7 +79,7 @@ app.put("/produtos/:id", async (req, res) => {
 });
 
 // Excluir um produto por ID
-app.delete("/produtos/:id", async (req, res) => {
+app.delete("/api/produtos/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { data, error } = await supabase

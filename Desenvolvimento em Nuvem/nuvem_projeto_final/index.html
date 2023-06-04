@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lista de Produtos</title>
+    <!-- Adicionando Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista de Produtos</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+          </tr>
+        </thead>
+        <tbody id="product-list">
+          <!-- Products will be dynamically added here -->
+        </tbody>
+      </table>
+
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          placeholder="Digite o nome do produto"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="preco" class="form-label">Preço</label>
+        <input
+          type="text"
+          class="form-control"
+          id="preco"
+          placeholder="Digite o preço do produto"
+        />
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="adicionarProduto()"
+      >
+        Adicionar Produto
+      </button>
+      <button type="button" class="btn btn-danger" onclick="removerProduto()">
+        Remover Produto
+      </button>
+    </div>
+
+    <!-- Adicionando scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+      // Fetch products from the server
+      fetch("/api/produtos")
+        .then((response) => response.json())
+        .then((data) => {
+          const productList = document.getElementById("product-list");
+
+          data.forEach((product) => {
+            const row = document.createElement("tr");
+
+            const idCell = document.createElement("td");
+            idCell.textContent = product.id;
+            row.appendChild(idCell);
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = product.nome;
+            row.appendChild(nameCell);
+
+            const priceCell = document.createElement("td");
+            priceCell.textContent = product.preco;
+            row.appendChild(priceCell);
+
+            productList.appendChild(row);
+          });
+        })
+        .catch((error) => {
+          console.error("Failed to fetch products:", error);
+        });
+
+      function adicionarProduto() {
+        const nome = document.getElementById("nome").value;
+        const preco = document.getElementById("preco").value;
+
+        fetch("/api/produtos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ nome: nome, preco: preco }), // Correção aqui
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const productList = document.getElementById("product-list");
+
+            const row = document.createElement("tr");
+
+            const idCell = document.createElement("td");
+            idCell.textContent = data.id;
+            row.appendChild(idCell);
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = data.nome;
+            row.appendChild(nameCell);
+
+            const priceCell = document.createElement("td");
+            priceCell.textContent = data.preco;
+            row.appendChild(priceCell);
+
+            productList.appendChild(row);
+          })
+          .catch((error) => {
+            console.error("Failed to add product:", error);
+          });
+      }
+
+      function removerProduto() {
+        const productId = prompt("Digite o ID do produto a ser removido:");
+
+        if (productId) {
+          fetch(`/api/produtos/${productId}`, {
+            method: "DELETE",
+          })
+            .then(() => {
+              const productList = document.getElementById("product-list");
+              const rows = productList.getElementsByTagName("tr");
+
+              for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const idCell = row.getElementsByTagName("td")[0];
+
+                if (idCell.textContent === productId) {
+                  productList.removeChild(row);
+                  break;
+                }
+              }
+            })
+            .catch((error) => {
+              console.error("Failed to remove product:", error);
+            });
+        }
+      }
+    </script>
+  </body>
+</html>
