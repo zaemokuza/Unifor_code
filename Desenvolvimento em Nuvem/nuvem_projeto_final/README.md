@@ -5,6 +5,7 @@ Passo 2.2 – Instale o servidor do node
 
 2.2.1: Instale o gerenciador de versão do nó (nvm, do inglês "node version
 manager") digitando o seguinte na linha de comando:
+
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
 2.2.2. Ative o nvm digitando o seguinte na linha de comando:
