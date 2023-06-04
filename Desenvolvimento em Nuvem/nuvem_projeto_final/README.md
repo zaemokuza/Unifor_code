@@ -1,5 +1,6 @@
 2.1) Digite o seguinte comando para ter privilégios de edição:
 sudo su
+
 Passo 2.2 – Instale o servidor do node
 
 2.2.1: Instale o gerenciador de versão do nó (nvm, do inglês "node version
